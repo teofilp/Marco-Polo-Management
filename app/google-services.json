@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "821275074068",
+    "firebase_url": "https://marco-polo-management.firebaseio.com",
+    "project_id": "marco-polo-management",
+    "storage_bucket": "marco-polo-management.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:821275074068:android:d02ecfa317848526",
+        "android_client_info": {
+          "package_name": "com.tudorfilp.marcopolomanagement"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "821275074068-5d2q3nhnbgk47nokuu5e73s25toj0g57.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tudorfilp.marcopolomanagement",
+            "certificate_hash": "50bb10398964287588a7bcc9691cfc540c6e6953"
+          }
+        },
+        {
+          "client_id": "821275074068-pg2hhabsc6nma0n9qt42kuovgankj866.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBK2P0_zPu_HgdxpA11qTSWQHe6gHoUueQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "821275074068-pg2hhabsc6nma0n9qt42kuovgankj866.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
