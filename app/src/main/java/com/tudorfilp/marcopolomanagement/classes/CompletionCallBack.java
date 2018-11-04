@@ -1,6 +1,6 @@
 package com.tudorfilp.marcopolomanagement.classes;
 
-public interface AuthCompletionCallBack {
+public interface CompletionCallBack {
 
     void onSuccess();
     void onFailure(Exception e);

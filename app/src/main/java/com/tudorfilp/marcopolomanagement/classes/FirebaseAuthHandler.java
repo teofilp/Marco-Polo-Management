@@ -2,25 +2,20 @@ package com.tudorfilp.marcopolomanagement.classes;
 
 import android.support.annotation.NonNull;
 
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.GoogleAuthProvider;
 
-public final class FirebaseAuthHandler implements AuthHandler {
+public final class FirebaseAuthHandler implements AuthHandler, AccountHandler{
 
-    static FirebaseAuthHandler handler;
-
+    private static FirebaseAuthHandler handler;
+    private FirebaseAuth mAuth;
     private FirebaseAuthHandler(){
 
     }
     @Override
-    public void signIn(String email, String password, final AuthCompletionCallBack callBack) {
+    public void signIn(String email, String password, final CompletionCallBack callBack) {
         FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
                 .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                     @Override
@@ -53,20 +48,10 @@ public final class FirebaseAuthHandler implements AuthHandler {
         return handler;
     }
 
-    public void authWithGoogle(GoogleSignInAccount account, final AuthCompletionCallBack callback){
+    public FirebaseAuth getmAuth() {
+        if(mAuth == null)
+            mAuth = FirebaseAuth.getInstance();
 
-        AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
-
-        FirebaseAuth.getInstance().signInWithCredential(credential)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
-                            callback.onSuccess();
-                        } else {
-                            callback.onFailure(task.getException());
-                        }
-                    }
-                });
+        return mAuth;
     }
 }

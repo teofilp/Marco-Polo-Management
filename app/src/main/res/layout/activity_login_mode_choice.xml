@@ -4,11 +4,132 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/login_background"
     tools:context=".activities.LoginModeChoice">
 
-    <com.google.android.gms.common.SignInButton
-        android:id="@+id/sign_in_button"
+    <ImageView
+        android:id="@+id/app_logo"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="@drawable/ship_logo"
+        android:layout_marginTop="50dp"
+        android:layout_centerHorizontal="true"
+        />
+
+    <LinearLayout
+        android:id="@+id/login_edittext_wrapper"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_width="wrap_content" />
+        android:orientation="vertical"
+        android:layout_below="@+id/app_logo"
+        android:layout_marginTop="40dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginLeft="24dp">
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColorHint="@color/colorPrimaryDark"
+            android:theme="@style/LoginTextLabel"
+            >
+
+            <android.support.v7.widget.AppCompatEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"
+                android:textColorHint="@color/colorPrimaryDark"
+                android:hint="Email"/>
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColorHint="@color/colorPrimaryDark"
+            android:theme="@style/LoginTextLabel"
+            >
+
+            <android.support.v7.widget.AppCompatEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:textColorHint="@color/colorPrimaryDark"
+                android:hint="Password"/>
+
+        </android.support.design.widget.TextInputLayout>
+        
+        <Button
+            android:id="@+id/default_sign_in"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:background="@drawable/bordered_rectanlge"
+            android:text="Login"
+            android:textColor="@color/colorPrimaryDark"
+            android:elevation="8dp"
+            android:layout_gravity="center_horizontal"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/login_edittext_wrapper"
+        android:layout_marginTop="18dp"
+        >
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="OR"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:textColor="@color/colorPrimaryDark"
+            android:layout_weight=".2"/>
+    </LinearLayout>
+
+    <!--<android.support.design.widget.TextInputLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--&gt;-->
+
+        <!--<android.support.design.widget.TextInputEditText-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:hint="Password"/>-->
+
+    <!--</android.support.design.widget.TextInputLayout>-->
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_alignParentBottom="true">
+        <Button
+            android:id="@+id/facebook_sign_in_button"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            style="@style/ThirdPartyLoginButtons"
+            android:background="#3b5998"
+            android:text="Sign in using Facebook"
+            android:layout_marginBottom="12dp"
+           />
+
+        <Button
+            android:id="@+id/google_sign_in_button"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            style="@style/ThirdPartyLoginButtons"
+            android:background="#db4437"
+            android:text="Sign in using Google"
+            android:layout_marginBottom="24dp" />
+
+    </LinearLayout>
+
 
 </RelativeLayout>

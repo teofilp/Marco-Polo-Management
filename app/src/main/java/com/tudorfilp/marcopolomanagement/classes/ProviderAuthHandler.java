@@ -1,5 +1,5 @@
 package com.tudorfilp.marcopolomanagement.classes;
 
 public interface ProviderAuthHandler {
-    void signIn();
+    void signIn(CompletionCallBack callBack);
 }
