@@ -7,13 +7,15 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-public final class FirebaseAuthHandler implements AuthHandler, AccountHandler{
+public final class FirebaseAuthHandler implements AuthHandler{
 
     private static FirebaseAuthHandler handler;
     private FirebaseAuth mAuth;
+
     private FirebaseAuthHandler(){
 
     }
+
     @Override
     public void signIn(String email, String password, final CompletionCallBack callBack) {
         FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
@@ -28,16 +30,6 @@ public final class FirebaseAuthHandler implements AuthHandler, AccountHandler{
                         callBack.onFailure(e);
                     }
                 });
-    }
-
-    @Override
-    public void signOut() {
-        FirebaseAuth.getInstance().signOut();
-    }
-
-    @Override
-    public boolean isSignedIn() {
-        return FirebaseAuth.getInstance().getCurrentUser() != null;
     }
 
     public static FirebaseAuthHandler getHandler() {

@@ -3,6 +3,7 @@ package com.tudorfilp.marcopolomanagement.activities;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.AppCompatEditText;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -17,36 +18,63 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserInfo;
 import com.tudorfilp.marcopolomanagement.R;
+import com.tudorfilp.marcopolomanagement.classes.AccountHandler;
+import com.tudorfilp.marcopolomanagement.classes.AuthHandler;
 import com.tudorfilp.marcopolomanagement.classes.CompletionCallBack;
+import com.tudorfilp.marcopolomanagement.classes.DatabaseUserAccountHandler;
 import com.tudorfilp.marcopolomanagement.classes.FacebookAuthHandler;
+import com.tudorfilp.marcopolomanagement.classes.FirebaseAccountHandler;
 import com.tudorfilp.marcopolomanagement.classes.FirebaseAuthHandler;
 import com.tudorfilp.marcopolomanagement.classes.FirebaseDatabaseUserAccountHandler;
 import com.tudorfilp.marcopolomanagement.classes.GoogleAuthHandler;
-import com.tudorfilp.marcopolomanagement.classes.User;
 
 import java.util.Arrays;
 
-public class LoginModeChoice extends AppCompatActivity {
-
-    private static final int GOOGLE_SIGN_IN_REQ_CODE = 1;
+public class Login extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login_mode_choice);
+        setContentView(R.layout.activity_login);
 
+        initializeViews();
         prepareForGoogleLogin();
         prepareForFacebookLogin();
 
     }
 
-    private void prepareForGoogleLogin(){
-        final LoginModeChoice activity = new LoginModeChoice();
-        Button googleSignInButton = findViewById(R.id.google_sign_in_button);
+    private void initializeViews() {
+        findViewById(R.id.default_sign_in).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loginAttempt(FirebaseAuthHandler.getHandler(), new CompletionCallBack(){
+                    @Override
+                    public void onSuccess() {
+                        goToLoggedInActivity();
+                    }
 
+                    @Override
+                    public void onFailure(Exception e) {
+
+                    }
+                });
+            }
+        });
+    }
+
+    void loginAttempt(AuthHandler authHandler, CompletionCallBack completionCallBack){
+
+        String email = ((AppCompatEditText) findViewById(R.id.login_email)).getText().toString();
+        String password = ((AppCompatEditText) findViewById(R.id.login_password)).getText().toString();
+
+        authHandler.signIn(email, password, completionCallBack);
+
+    }
+
+    private void prepareForGoogleLogin(){
+        final Login activity = new Login();
+        Button googleSignInButton = findViewById(R.id.google_sign_in_button);
 
         final GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -76,8 +104,9 @@ public class LoginModeChoice extends AppCompatActivity {
                     @Override
                     public void onSuccess() {
 
-                        startActivity(new Intent(getApplicationContext(), UserActivity.class));
-                        updateProvidersAccountDetails();
+                        goToLoggedInActivity();
+                        updateProvidersAccountDetails(new FirebaseAccountHandler(), new FirebaseDatabaseUserAccountHandler());
+
                     }
 
                     @Override
@@ -103,61 +132,52 @@ public class LoginModeChoice extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 LoginManager.getInstance()
-                        .logInWithReadPermissions(LoginModeChoice.this, Arrays.asList("public_profile", "email"));
+                        .logInWithReadPermissions(Login.this, Arrays.asList("public_profile", "email"));
             }
         });
     }
 
-    private void updateProvidersAccountDetails(){
+    private void updateProvidersAccountDetails(AccountHandler accountHandler, DatabaseUserAccountHandler databaseUserAccountHandler){
 
-        FirebaseUser user = FirebaseAuthHandler.getHandler().getmAuth().getCurrentUser();
-        if(user!=null){
-            User currentUser = new User();
-            for(UserInfo profile : user.getProviderData()){
-                currentUser.setEmail(profile.getEmail());
-                currentUser.setProfileName(profile.getDisplayName());
-                currentUser.setPhotoUrl(profile.getPhotoUrl().toString());
-                currentUser.setLogin_mode_id(profile.getProviderId());
+        accountHandler.getUserDetails().save(databaseUserAccountHandler, new CompletionCallBack() {
+            @Override
+            public void onSuccess() {
+
             }
 
-            currentUser.save(new FirebaseDatabaseUserAccountHandler(), new CompletionCallBack() {
-                @Override
-                public void onSuccess() {
+            @Override
+            public void onFailure(Exception e) {
 
-                }
+            }
+        });
 
-                @Override
-                public void onFailure(Exception e) {
-
-                }
-            });
-        }
     }
 
     private void signInWithGoogle(final GoogleSignInClient googleSignInClient){
 
         Intent googleSignInIntent = googleSignInClient.getSignInIntent();
-        startActivityForResult(googleSignInIntent, GOOGLE_SIGN_IN_REQ_CODE);
+        startActivityForResult(googleSignInIntent, GoogleAuthHandler.getGoogleSignInReqCode());
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == GOOGLE_SIGN_IN_REQ_CODE){
+        if(requestCode == GoogleAuthHandler.getGoogleSignInReqCode()){
+
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
 
             try{
-                //Toast.makeText(this, "something", Toast.LENGTH_SHORT).show();
+
                     GoogleSignInAccount account = task.getResult(ApiException.class);
 
                     GoogleAuthHandler.setAccount(account);
                     GoogleAuthHandler.getAuthHandler().signIn(new CompletionCallBack() {
                         @Override
                         public void onSuccess() {
-                            //Toast.makeText(LoginModeChoice.this, "Succesful", Toast.LENGTH_SHORT).show();
-                            updateProvidersAccountDetails();
-                            startActivity(new Intent(getApplicationContext(), UserActivity.class));
+
+                            goToLoggedInActivity();
+                            updateProvidersAccountDetails(new FirebaseAccountHandler(), new FirebaseDatabaseUserAccountHandler());
 
                         }
 
@@ -177,6 +197,13 @@ public class LoginModeChoice extends AppCompatActivity {
         }
     }
 
+    private void goToLoggedInActivity(){
+
+        sendBroadcast(new Intent("finish_landing_activity"));
+        startActivity(new Intent(getApplicationContext(), UserActivity.class));
+        finish();
+
+    }
 
 
 }

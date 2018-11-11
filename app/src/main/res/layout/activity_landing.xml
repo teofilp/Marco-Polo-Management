@@ -12,6 +12,7 @@
         android:background="@drawable/ship_logo"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="150dp"
+        android:transitionName="app_logo_transition"
         />
     <TextView
         android:id="@+id/app_title"
@@ -23,6 +24,7 @@
         android:text="Marco Polo Management"
         android:textColor="@color/colorPrimaryDark"
         android:fontFamily="@font/bella_fashion"
+        android:transitionName="app_title_transition"
         />
     <TextView
         android:layout_width="200dp"
@@ -41,6 +43,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="30dp">
         <Button
+            android:id="@+id/requestRegisterPageButton"
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:layout_weight=".45"
@@ -54,6 +57,7 @@
             android:layout_height="2px"
             android:layout_weight=".03"/>
         <Button
+            android:id="@+id/requestLoginPageButton"
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:layout_weight=".45"

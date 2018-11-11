@@ -1,6 +1,7 @@
 package com.tudorfilp.marcopolomanagement.classes;
 
 public class User {
+    private String id;
     private String profileName;
     private String email;
     private String login_mode_id;
@@ -8,6 +9,10 @@ public class User {
     public User(){
 
     }
+
+    public String getId(){ return id;}
+
+    public void setId(String id) { this.id = id; }
 
     public String getLogin_mode_id() {
         return login_mode_id;

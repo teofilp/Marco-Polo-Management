@@ -21,6 +21,7 @@ import com.google.firebase.auth.GoogleAuthProvider;
 
 public final class GoogleAuthHandler implements ProviderAuthHandler {
 
+    private static final int GOOGLE_SIGN_IN_REQ_CODE = 1;
     private static GoogleAuthHandler authHandler;
     private static GoogleSignInAccount account;
     private GoogleSignInClient googleSignInClient;
@@ -79,4 +80,9 @@ public final class GoogleAuthHandler implements ProviderAuthHandler {
     public GoogleSignInClient getGoogleSignInClient() {
         return googleSignInClient;
     }
+
+    public static int getGoogleSignInReqCode() {
+        return GOOGLE_SIGN_IN_REQ_CODE;
+    }
+
 }

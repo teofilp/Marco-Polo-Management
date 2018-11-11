@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".activities.UserActivity">
     <Button
+        android:id="@+id/sign_out"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="signOut"/>
+        android:layout_height="wrap_content" />
 </RelativeLayout>

@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.tudorfilp.marcopolomanagement.R;
+import com.tudorfilp.marcopolomanagement.classes.AccountHandler;
+import com.tudorfilp.marcopolomanagement.classes.FirebaseAccountHandler;
 import com.tudorfilp.marcopolomanagement.classes.FirebaseAuthHandler;
 
 public class UserActivity extends AppCompatActivity {
@@ -18,14 +20,21 @@ public class UserActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
 
+        initializeViews();
     }
 
-    public void signOut(View view){
+    private void initializeViews(){
+        findViewById(R.id.sign_out).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                signOut(new FirebaseAccountHandler());
+            }
+        });
+    }
 
-        FirebaseAuthHandler.getHandler().signOut();
-        SharedPreferences sharedPreferences = this.getSharedPreferences("login_details", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.remove("login_mode").apply();
+    private void signOut(AccountHandler accountHandler){
+
+        accountHandler.signOut();
         finish();
     }
 }

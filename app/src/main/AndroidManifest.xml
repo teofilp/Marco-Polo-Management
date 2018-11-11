@@ -18,7 +18,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.LoginModeChoice" />
+        <activity android:name=".activities.Login" />
         <activity android:name=".activities.UserActivity" />
 
         <meta-data

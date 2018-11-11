@@ -5,15 +5,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/login_background"
-    tools:context=".activities.LoginModeChoice">
+    tools:context=".activities.Login">
 
     <ImageView
         android:id="@+id/app_logo"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:background="@drawable/ship_logo"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="40dp"
         android:layout_centerHorizontal="true"
+        android:transitionName="app_logo_transition"
+        />
+    <TextView
+        android:id="@+id/app_title"
+        android:layout_below="@+id/app_logo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:textAlignment="center"
+        android:textSize="10sp"
+        android:text="Marco Polo Management"
+        android:transitionName="app_title_transition"
+        android:textColor="@color/colorPrimaryDark"
+        android:fontFamily="@font/bella_fashion"
+        android:focusableInTouchMode="true"
         />
 
     <LinearLayout
@@ -22,11 +37,12 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_below="@+id/app_logo"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="54dp"
         android:layout_marginRight="24dp"
         android:layout_marginLeft="24dp">
 
         <android.support.design.widget.TextInputLayout
+            android:id="@+id/login_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColorHint="@color/colorPrimaryDark"
@@ -50,6 +66,7 @@
             >
 
             <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/login_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
@@ -62,7 +79,7 @@
             android:id="@+id/default_sign_in"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="24dp"
             android:layout_marginBottom="16dp"
             android:layout_marginLeft="4dp"
             android:layout_marginRight="4dp"
@@ -72,36 +89,17 @@
             android:elevation="8dp"
             android:layout_gravity="center_horizontal"
             />
-    </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/login_edittext_wrapper"
-        android:layout_marginTop="18dp"
-        >
         <TextView
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:text="OR"
             android:textSize="18sp"
-            android:gravity="center"
+            android:layout_gravity="center_horizontal"
             android:textColor="@color/colorPrimaryDark"
-            android:layout_weight=".2"/>
+            />
     </LinearLayout>
-
-    <!--<android.support.design.widget.TextInputLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--&gt;-->
-
-        <!--<android.support.design.widget.TextInputEditText-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:hint="Password"/>-->
-
-    <!--</android.support.design.widget.TextInputLayout>-->
-
 
     <LinearLayout
         android:layout_width="match_parent"
