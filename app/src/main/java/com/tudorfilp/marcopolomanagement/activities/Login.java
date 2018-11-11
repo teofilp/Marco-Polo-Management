@@ -67,8 +67,8 @@ public class Login extends AppCompatActivity {
 
         String email = ((AppCompatEditText) findViewById(R.id.login_email)).getText().toString();
         String password = ((AppCompatEditText) findViewById(R.id.login_password)).getText().toString();
-
-        authHandler.signIn(email, password, completionCallBack);
+        if(!email.equals("") && !password.equals(""))
+            authHandler.signIn(email, password, completionCallBack);
 
     }
 
@@ -170,8 +170,8 @@ public class Login extends AppCompatActivity {
             try{
 
                     GoogleSignInAccount account = task.getResult(ApiException.class);
-
                     GoogleAuthHandler.setAccount(account);
+
                     GoogleAuthHandler.getAuthHandler().signIn(new CompletionCallBack() {
                         @Override
                         public void onSuccess() {

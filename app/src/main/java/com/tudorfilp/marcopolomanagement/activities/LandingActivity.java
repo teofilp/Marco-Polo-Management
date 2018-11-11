@@ -42,7 +42,7 @@ public class LandingActivity extends AppCompatActivity {
 
                 registerReceiver(broadcastReceiver, new IntentFilter(("finish_landing_activity")));
 
-                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(LandingActivity.this,
+                final ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(LandingActivity.this,
                         Pair.create(sharedAppLogo, "app_logo_transition"),
                         Pair.create(sharedAppTitle, "app_title_transition"));
 
@@ -55,6 +55,9 @@ public class LandingActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 registerReceiver(broadcastReceiver, new IntentFilter("finish_landing_activity"));
+
+                startActivity(new Intent(getApplicationContext(), Register.class),
+                        (ActivityOptions.makeSceneTransitionAnimation(LandingActivity.this)).toBundle());
 
             }
         });

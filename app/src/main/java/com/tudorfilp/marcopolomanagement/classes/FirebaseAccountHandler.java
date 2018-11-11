@@ -8,7 +8,6 @@ public class FirebaseAccountHandler implements AccountHandler {
 
     public FirebaseAccountHandler(){
 
-
     }
 
     @Override
@@ -47,6 +46,7 @@ public class FirebaseAccountHandler implements AccountHandler {
 
     @Override
     public boolean isSignedIn() {
-        return false;
+
+        return FirebaseAuth.getInstance().getCurrentUser() != null;
     }
 }

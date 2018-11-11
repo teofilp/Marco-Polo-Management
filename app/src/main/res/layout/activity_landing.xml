@@ -50,7 +50,7 @@
             android:textSize="10sp"
             android:layout_gravity="left"
             android:textStyle="bold"
-            android:background="@drawable/landing_join_button"
+            android:background="@drawable/black_bordered_button"
             android:text="JOIN NOW"/>
         <View
             android:layout_width="0dp"
